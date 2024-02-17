@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main() 
+{
+	int n;
+
+	printf("");
+	scanf("%d", &n);	
+
+	for (int i = 1; i <= n; i++)
+	{
+		int num = i;
+		int has369 = 0;
+
+		while (num > 0)
+		{
+			int digit = num % 10;
+			
+			if (digit == 3 || digit == 6 || digit == 9)
+			{
+				has369 = 1;
+				break;
+			}
+	
+			num /= 10;
+		}
+		if (has369)
+		{
+			printf("짝");
+		}
+		else
+		{
+			printf("%d", i);
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
