@@ -1,0 +1,98 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/PlayerController.h"
+#include "EngineGlobals.h"
+#include "MyPlayerController.generated.h"
+
+/**
+ * 
+ */
+
+class Animal {
+private:
+	int food;
+	int weight;
+
+public:
+	Animal() // 생성자
+	{
+		// 시작할 때 호출
+		// 주로 데이터 초기화(데이터 세팅)
+		GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Yellow, FString::Printf(TEXT("tiger")));
+	}
+
+	~Animal() // 소멸자 (언리얼에선 메모리 할당 / 해제를 거의 자동으로 해줌)
+	{
+		// 끝날 때 호출
+		// 주로 포인터 주소값 또는 변수들을 정리
+		GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Yellow, FString::Printf(TEXT("tiger")));
+	}
+	void set_animal(int _food, int _weight) {
+		food = _food;
+		weight = _weight;
+
+	}
+	void increase_food(int inc) {
+		food += inc;
+		weight += (inc / 3);
+	}
+
+	void view_stat() {
+
+		UE_LOG(LogTemp, Warning, TEXT("this animal food %d"), food);
+		UE_LOG(LogTemp, Warning, TEXT("this animal weight %d"), weight);
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("this animal food %d"), food));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("this animal weight %d"), weight));
+		}
+
+	}
+	
+};
+
+UCLASS()
+class UNREALCPP_0309_API AMyPlayerController : public APlayerController
+{
+	GENERATED_BODY()
+	
+
+public:
+
+	UFUNCTION(Exec)
+	void PlayMain() {
+		Animal animal;
+		animal.set_animal(100, 50);
+		animal.increase_food(50);
+		animal.view_stat();
+
+	};
+
+	//오버로딩
+	void print(char x) { UE_LOG(LogTemp, Warning, TEXT("%c"), x); }
+	void print(int x) { UE_LOG(LogTemp, Warning, TEXT("%d"), x); }
+	void print(double x) { UE_LOG(LogTemp, Warning, TEXT("%f"), x); }
+
+	UFUNCTION(Exec)
+	void FunctionOverloading() {
+		int a = 1;
+		char b = 'c';
+		double c = 3.14f;
+		
+		print(a);
+		print(b);
+		print(c);
+	};
+
+	UFUNCTION(Exec)
+	void AAAA() {
+		Animal a;
+		Animal b;
+		Animal c;
+	};
+
+
+};
